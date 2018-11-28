@@ -17,6 +17,8 @@ def neigh_with_d(g, node, d):
 
 
 def find_subgraph(g, candidates, length, degree_list, nodes_found, list_to_return):
+    print("degree list is ", degree_list)
+    print("status of nodes found ", nodes_found)
     if len(nodes_found) == length:
         nodes_found.pop(len(nodes_found) - 1)
         return list_to_return
@@ -30,8 +32,9 @@ def find_subgraph(g, candidates, length, degree_list, nodes_found, list_to_retur
             nodes_found.pop(len(nodes_found) - 1)
             return list_to_return
         print("status of nodes found ", nodes_found)
+        print("Currently checking for degree ", degree_list[len(nodes_found)]);
         valid_neighs = neigh_with_d(g, candidates[x], degree_list[len(nodes_found)])
-        print("Neighbours found", valid_neighs)
+        print("Neighbours found with correct degree", valid_neighs)
         for y in range (0, len(valid_neighs)):
             if valid_neighs[y] not in nodes_found:
                 print("exploring on neigh ", valid_neighs[y])
