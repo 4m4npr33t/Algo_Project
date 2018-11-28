@@ -23,26 +23,23 @@ def find_subgraph(g, candidates, length, degree_list, nodes_found, list_to_retur
         nodes_found.pop(len(nodes_found) - 1)
         return list_to_return
     print("status of nodes found ", nodes_found)
-    for x in range(0, len(candidates)):
-        print("Node added", candidates[x])
-        nodes_found.append(candidates[x])
-        if len(nodes_found) == length:
-            list_to_return.extend(nodes_found)
-            print("Length matched list added is",list_to_return)
-            nodes_found.pop(len(nodes_found) - 1)
-            return list_to_return
-        print("status of nodes found ", nodes_found)
-        print("Currently checking for degree ", degree_list[len(nodes_found)]);
-        valid_neighs = neigh_with_d(g, candidates[x], degree_list[len(nodes_found)])
-        print("Neighbours found with correct degree", valid_neighs)
-        for y in range (0, len(valid_neighs)):
-            if valid_neighs[y] not in nodes_found:
-                print("exploring on neigh ", valid_neighs[y])
-                lst = []
-                lst.append(valid_neighs[y])
-                find_subgraph(g, lst, length, degree_list, nodes_found, list_to_return)
-            else:
-                print("Neighbor not good ", valid_neighs[y])
+    print("Node added", candidates)
+    nodes_found.append(candidates)
+    if len(nodes_found) == length:
+        list_to_return.extend(nodes_found)
+        print("Length matched list added is",list_to_return)
+        nodes_found.pop(len(nodes_found) - 1)
+        return list_to_return
+    print("status of nodes found ", nodes_found)
+    print("Currently checking for degree ", degree_list[len(nodes_found)]);
+    valid_neighs = neigh_with_d(g, candidates, degree_list[len(nodes_found)])
+    print("Neighbours found with correct degree", valid_neighs)
+    for y in range (0, len(valid_neighs)):
+        if valid_neighs[y] not in nodes_found:
+            print("exploring on neigh ", valid_neighs[y])
+            find_subgraph(g, valid_neighs[y], length, degree_list, nodes_found, list_to_return)
+        else:
+            print("Neighbor not good ", valid_neighs[y])
     nodes_found.pop(len(nodes_found)-1)
     print("status of nodes found ", nodes_found)
     return list_to_return
